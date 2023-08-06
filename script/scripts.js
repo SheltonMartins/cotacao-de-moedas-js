@@ -2,29 +2,6 @@ import atualizaLista from './imprimeCotacao.js';
 
 
 
-// const graficoIene = document.getElementById('graficoIene');
-// const graficoParaIene = new Chart(graficoIene, {
-//     type: 'line',
-//     data: {
-//         labels: [],
-//         datasets: [{
-//             label: 'Iene',
-//             data: [],
-//             borderWidth: 1
-//         }]
-//     }
-// })
-
-// let workerIene = new Worker("./script/workers/workerIene.js");
-// workerIene.postMessage("iene");
-// workerIene.addEventListener("message", event => {
-//     let tempo = geraHorario();
-//     let valor = event.data.ask;
-//     adicionarDados(graficoParaIene, tempo, valor);
-//     selecionaCotacao("iene", valor)
-// })
-
-
 
 
 const graficoDolar = document.getElementById('graficoDolar');
@@ -79,23 +56,6 @@ function setDate() {
 
 }
 
-// async function conectaAPI() {
-
-//     const cotacao = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL")
-
-//     const cotacaoTraduzida = await cotacao.json();
-
-//     const valor = cotacaoTraduzida.USDBRL.ask;
-
-//     const horario = setDate();
-
-//     atualizaLista(valor, 'dolar')
-
-//     updateGraph(graficoParaDolar, horario, valor)
-
-//     return valor
-
-// }
 
 function updateGraph(grafico, legenda, cotacao) {
 

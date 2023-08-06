@@ -40,7 +40,13 @@ export default function atualizaLista(cotacao, moeda) {
 
                 const itemDaLista = document.createElement('li')
 
-                itemDaLista.innerHTML = `${multiplicador} ${moeda}  = ${(cotacao*multiplicador).toFixed(2)} reais `
+                if (moeda=='dolar'){
+
+                itemDaLista.innerHTML = `${multiplicador} ${multiplicador>1 ? moeda + 'es' : moeda}  = ${(cotacao*multiplicador).toFixed(2)} reais `
+
+                }else if(moeda =='bitcoin'){
+                    itemDaLista.innerHTML = `${multiplicador} ${multiplicador>1 ? moeda + 's' : moeda}  = ${(cotacao*multiplicador).toFixed(2)} reais `
+                }
 
                 listaUl.appendChild(itemDaLista)
 
