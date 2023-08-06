@@ -23,5 +23,5 @@
     display: grid;
     height: 100vh;
     grid-template-columns: 20% auto;
-    background-color: var(--lilas);
+    background-color: #F1F1F1;
 }

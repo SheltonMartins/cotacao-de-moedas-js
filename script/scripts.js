@@ -1,4 +1,32 @@
-import selecionaCotacao from "./imprimeCotacao.js";
+import atualizaLista from './imprimeCotacao.js';
+
+
+
+// const graficoIene = document.getElementById('graficoIene');
+// const graficoParaIene = new Chart(graficoIene, {
+//     type: 'line',
+//     data: {
+//         labels: [],
+//         datasets: [{
+//             label: 'Iene',
+//             data: [],
+//             borderWidth: 1
+//         }]
+//     }
+// })
+
+// let workerIene = new Worker("./script/workers/workerIene.js");
+// workerIene.postMessage("iene");
+// workerIene.addEventListener("message", event => {
+//     let tempo = geraHorario();
+//     let valor = event.data.ask;
+//     adicionarDados(graficoParaIene, tempo, valor);
+//     selecionaCotacao("iene", valor)
+// })
+
+
+
+
 const graficoDolar = document.getElementById('graficoDolar');
 
 const graficoParaDolar = new Chart(graficoDolar, {
@@ -6,25 +34,103 @@ const graficoParaDolar = new Chart(graficoDolar, {
     data: {
         labels: [],
         datasets: [{
-            label: 'Dólar',
+            label: 'Dolar hoje',
             data: [],
             borderWidth: 1
         }]
     },
 });
 
-function geraHorario() {
-    let data = new Date();
-    let horario = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
-    console.log(horario);
-    return horario;
+const graficoIene = document.getElementById('graficoIene')
+
+const graficoParaIene = new Chart(graficoIene, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Iene hoje',
+            data: [],
+            borderWidth: 1
+        }]
+    },
+});
+
+const graficoBitcoin = document.getElementById('graficoBitcoin');
+
+const graficoParaBitcoin = new Chart(graficoBitcoin, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Bitcoin hoje',
+            data: [],
+            borderWidth: 1
+        }]
+    },
+});
+
+function setDate() {
+
+    const date = new Date()
+
+    const horario = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+
+    return horario
+
 }
 
-function adicionarDados(grafico, legenda, dados) {
-    grafico.data.labels.push(legenda);
+// async function conectaAPI() {
+
+//     const cotacao = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL")
+
+//     const cotacaoTraduzida = await cotacao.json();
+
+//     const valor = cotacaoTraduzida.USDBRL.ask;
+
+//     const horario = setDate();
+
+//     atualizaLista(valor, 'dolar')
+
+//     updateGraph(graficoParaDolar, horario, valor)
+
+//     return valor
+
+// }
+
+function updateGraph(grafico, legenda, cotacao) {
+
+    grafico.data.labels.push(legenda)
+
     grafico.data.datasets.forEach((dataset) => {
-        dataset.data.push(dados);
-    })
+
+        dataset.data.push(cotacao)
+
+    });
+
+    grafico.update();
+
+
+    //removendo primeira info p/ não mostrar mais de 6 
+    if (grafico.data.labels.length >= 6){
+
+        removeData(grafico)
+
+    }
+
+
+}
+
+
+function removeData(grafico) {
+
+    grafico.data.labels.shift();
+
+    grafico.data.datasets.forEach((dataset) => {
+
+        dataset.data.shift();
+
+    });
+
     grafico.update();
 }
 
@@ -32,30 +138,35 @@ let workerDolar = new Worker('./script/workers/workerDolar.js');
 workerDolar.postMessage('usd');
 
 workerDolar.addEventListener("message", event => {
-    let tempo = geraHorario();
+    let tempo = setDate();
     let valor = event.data.ask;
-    selecionaCotacao("dolar", valor);
-    adicionarDados(graficoParaDolar, tempo, valor);
+    atualizaLista(valor, 'dolar');
+    updateGraph(graficoParaDolar, tempo, valor)
 })
 
-const graficoIene = document.getElementById('graficoIene');
-const graficoParaIene = new Chart(graficoIene, {
-    type: 'line',
-    data: {
-        labels: [],
-        datasets: [{
-            label: 'Iene',
-            data: [],
-            borderWidth: 1
-        }]
-    }
-})
 
-let workerIene = new Worker("./script/workers/workerIene.js");
-workerIene.postMessage("iene");
+let workerIene = new Worker('./script/workers/workerIene.js');
+workerIene.postMessage('iene');
+
 workerIene.addEventListener("message", event => {
-    let tempo = geraHorario();
+    let tempo = setDate();
     let valor = event.data.ask;
-    adicionarDados(graficoParaIene, tempo, valor);
-    selecionaCotacao("iene", valor)
+    atualizaLista(valor, 'iene');
+    updateGraph(graficoParaIene, tempo, valor)
 })
+
+
+
+let workerBitcoin = new Worker('./script/workers/workerBitcoin.js');
+workerBitcoin.postMessage('bitcoin');
+
+workerBitcoin.addEventListener("message", event => {
+    let tempo = setDate();
+    let valor = event.data.ask;
+    atualizaLista(valor, 'bitcoin');
+    updateGraph(graficoParaBitcoin, tempo, valor)
+})
+
+
+
+
