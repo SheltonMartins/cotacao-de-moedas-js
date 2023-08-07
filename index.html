@@ -12,28 +12,23 @@
 </head>
 
 <body class="container">
-  <aside class="sidebar">
-    
-    <h2>Projeto Cotação</h2>
-    <hr class="sidebar__linha" />
-    <nav class="sidebar__links">
-      <a href="#"><span class="links__icone cofre">Investimentos</a>
-    </nav>
-  </aside>
 
-  <main class="dados">
+  
     <header class="cabecalho">
-      <h2>Olá! Estes são os detalhes da sua cotação:</h2>
+      <h2>Cotação de hoje:</h2>
     </header>
 
-    <article class="dadosDolar">
-      <div class="grafico">
+    <article class="dadosDolar"> 
+      
         <div class="grafico__titulo">
           <span class="grafico__ilustracao-dolar"></span>
-          <h2>Variação da moeda desde o login</h2>
+          <h2>Variação da moeda</h2>
         </div>
-        <canvas id="graficoDolar"></canvas>
-      </div>
+        <canvas id="graficoDolar" ></canvas>
+     
+    </article>
+
+    <article class="dadosDolar" id="dadosDolarResponsivo">
       <div class="investimentos">
         <h2>Valores da moeda</h2>
         <ul class="investimentos__lista" id="dolar" data-lista>
@@ -42,16 +37,19 @@
     </article>
 
 
-
     <article class="dadosBitcoin">
-      <div class="grafico">
+      
         <div class="grafico__titulo">
           <span class="grafico__ilustracao-dolar"></span>
-          <h2>Variação da moeda desde o login</h2>
+          <h2>Variação da moeda</h2>
         </div>
         <canvas id="graficoBitcoin"></canvas>
-      </div>
+  
 
+   
+    </article>
+
+    <article class="dadosBitcoin">
       <div class="investimentos">
         <h2>Valores da moeda</h2>
         <ul class="investimentos__lista" id="bitcoin" data-lista>
@@ -59,6 +57,7 @@
       </div>
     </article>
 
+  
 
 
 
@@ -66,7 +65,7 @@
     <footer class="rodape">
       
     </footer>
-  </main>
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="./script/scripts.js" type="module"></script>
 </body>

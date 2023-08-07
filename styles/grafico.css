@@ -7,17 +7,18 @@
     justify-content: space-between;
     background-color: white;
     border-radius: 24px;
-    width: 65%;
+    width: 50%;
     color: var(--cinza);
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.grafico {
-    width: 30vw;
-}
 
 .grafico__titulo {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .grafico__titulo span {
@@ -47,4 +48,28 @@
 
 .investimentos__lista li {
     margin: 1em 0;
+}
+
+.canvas {
+    min-width: 300px;
+}
+
+@media(max-width: 600px) {
+
+    .dadosDolar,
+    .dadosBitcoin,
+    .dadosIene{
+        width: 95%;
+    }
+    
+    .protegeGrafico {
+
+        width: 100%;
+
+    }
+
+    .trocaGraficoDolar {
+        display: hide;
+    }
+
 }

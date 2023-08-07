@@ -20,8 +20,15 @@
 }
 
 .container {
-    display: grid;
+   
     height: 100vh;
     grid-template-columns: 20% auto;
     background-color: #F1F1F1;
+    width: 100%;
+}
+
+.dados{
+
+    width: 100%;
+
 }
